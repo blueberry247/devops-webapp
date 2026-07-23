@@ -12,11 +12,9 @@ stages:
   displayName: Build Spring Boot Application
 
   jobs:
-
   - job: Build
 
     steps:
-
     - checkout: self
 
     - task: Maven@4
@@ -30,8 +28,43 @@ stages:
         jdkVersionOption: '17'
         mavenVersionOption: 'Default'
 
-    - task: PublishBuildArtifacts@1
-      displayName: Publish JAR
+    - task: PublishPipelineArtifact@1
+      displayName: Publish JAR Artifact
       inputs:
-        PathtoPublish: 'target'
-        ArtifactName: 'springboot-app'
+        targetPath: '$(System.DefaultWorkingDirectory)/target'
+        artifact: 'springboot-app'
+        publishLocation: 'pipeline'
+
+
+- stage: Deploy
+  displayName: Deploy to Azure App Service
+  dependsOn: Build
+  condition: succeeded()
+
+  jobs:
+  - deployment: DeployWebApp
+    displayName: Deploy Spring Boot Application
+    environment: dev
+
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+
+          - checkout: none
+
+          - task: DownloadPipelineArtifact@2
+            displayName: Download JAR Artifact
+            inputs:
+              buildType: current
+              artifactName: springboot-app
+              targetPath: '$(Pipeline.Workspace)/springboot-app'
+
+          - task: AzureWebApp@1
+            displayName: Deploy JAR to App Service
+            inputs:
+              azureSubscription: 'devops'
+              appType: 'webAppLinux'
+              appName: 'blueberry247-devops-webapp'
+              package: '$(Pipeline.Workspace)/springboot-app/*.jar'
+              runtimeStack: 'JAVA|17-java17'
