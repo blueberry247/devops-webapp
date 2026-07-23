@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}">About</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f6f9;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px lightgray;
+            max-width: 700px;
+            margin: auto;
+        }
+
+        h1 {
+            color: #0078D4;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1 th:text="${title}"></h1>
+
+    <p th:text="${description}"></p>
+
+    <h3>Project Features</h3>
+
+    <ul>
+        <li>Spring Boot web application</li>
+        <li>Maven build process</li>
+        <li>JUnit testing</li>
+        <li>Terraform infrastructure</li>
+        <li>Azure DevOps CI/CD</li>
+        <li>Azure App Service deployment</li>
+    </ul>
+
+    <a href="/">Return to Home</a>
+
+</div>
+
+</body>
+</html>
