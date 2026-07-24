@@ -76,31 +76,19 @@ Developer
 
 # ⚙️ Azure DevOps Pipeline
 
-Every push to the **main** branch automatically triggers the pipeline.
-
-Pipeline stages:
-
-- Checkout Repository
-- Build Spring Boot Application
-- Run Unit Tests
-- Publish JAR Artifact
-- Deploy to Azure App Service
-
----
-
 # 📸 Azure DevOps Pipeline
 
-> *(Add your successful pipeline screenshot here)*
+The Azure DevOps pipeline automatically builds, tests and deploys the Spring Boot application.
 
-```text
-images/pipeline-success.png
-```
+![Azure DevOps Pipeline](images/pipeline-success.png)
 
-Example:
+### Pipeline Stages
 
-```markdown
-![Pipeline](images/pipeline-success.png)
-```
+- ✅ Checkout source code from GitHub
+- ✅ Build the application using Maven
+- ✅ Execute JUnit tests
+- ✅ Publish the JAR as a Pipeline Artifact
+- ✅ Deploy the application to Azure App Service
 
 ---
 
